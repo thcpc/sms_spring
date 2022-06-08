@@ -6,10 +6,13 @@
 
   <groupId>org.springframework</groupId>
   <artifactId>sms_spring</artifactId>
-  <packaging>jar</packaging>
+  <packaging>pom</packaging>
   <version>1.0-SNAPSHOT</version>
+  <modules>
+    <module>spring-step-01</module>
+  </modules>
 
-  <name>A Camel Route</name>
+  <name>sms spring</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -17,7 +20,15 @@
     <log4j2-version>2.13.3</log4j2-version>
   </properties>
 
-
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.testng</groupId>
+        <artifactId>testng</artifactId>
+        <version>7.4.0</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
   <build>
     <defaultGoal>install</defaultGoal>
 
