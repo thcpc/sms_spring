@@ -1,4 +1,4 @@
-package org.springframework.beans.support;
+package org.springframework.beans.factory.support;
 
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.NoOp;

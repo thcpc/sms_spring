@@ -1,4 +1,4 @@
-package org.springframework.beans.support;
+package org.springframework.beans.factory.support;
 
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.ResourceLoader;

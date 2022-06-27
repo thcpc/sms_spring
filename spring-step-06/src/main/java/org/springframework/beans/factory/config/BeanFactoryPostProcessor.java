@@ -1,6 +1,7 @@
 package org.springframework.beans.factory.config;
 
 import org.springframework.beans.BeansException;
+import org.springframework.beans.ConfigurableListableBeanFactory;
 
 public interface BeanFactoryPostProcessor {
     /**
@@ -9,5 +10,5 @@ public interface BeanFactoryPostProcessor {
      * @param beanFactory
      * @throws BeansException
      */
-    void postProcessBeanFactory() throws BeansException;
+    void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException;
 }
