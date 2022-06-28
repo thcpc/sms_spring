@@ -1,9 +1,8 @@
-package org.springframework.beans.factory.config;
+package org.springframework.beans.factory.support;
 
 import org.springframework.beans.BeansException;
-import org.springframework.beans.ConfigurableListableBeanFactory;
-import org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory;
-import org.springframework.beans.factory.support.BeanDefinitionRegistry;
+import org.springframework.beans.factory.ConfigurableListableBeanFactory;
+import org.springframework.beans.factory.config.BeanDefinition;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,6 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFactory implements BeanDefinitionRegistry, ConfigurableListableBeanFactory {
     private Map<String, BeanDefinition> beanDefinitionMap = new ConcurrentHashMap<>();
 
+
     @Override
     public void preInstantiateSingletons() throws BeansException {
         beanDefinitionMap.keySet().forEach(this::getBean);
@@ -19,14 +19,14 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 
     @Override
     public <T> Map<String, T> getBeansOfType(Class<T> type) throws BeansException {
-       Map<String, T> result = new HashMap<>();
-       beanDefinitionMap.forEach((beanName,beanDefinition)->{
-           Class beanClass = beanDefinition.getBeanClass();
-           if(type.isAssignableFrom(beanClass)){
-               result.put(beanName,(T)getBean(beanName));
-           }
-       });
-       return result;
+        Map<String ,T> result = new HashMap<>();
+        beanDefinitionMap.forEach(((beanName, beanDefinition) ->{
+            Class beanClass = beanDefinition.getBeanClass();
+            if(type.isAssignableFrom(beanClass)){
+                result.put(beanName,(T) getBean(beanName));
+            }
+        } ));
+        return result;
     }
 
     @Override
@@ -48,6 +48,6 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 
     @Override
     public boolean containsBeanDefinition(String beanName) {
-        return this.beanDefinitionMap.containsKey(beanName);
+        return beanDefinitionMap.containsKey(beanName);
     }
 }

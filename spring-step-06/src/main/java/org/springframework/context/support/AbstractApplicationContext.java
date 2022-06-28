@@ -1,7 +1,7 @@
 package org.springframework.context.support;
 
 import org.springframework.beans.BeansException;
-import org.springframework.beans.ConfigurableListableBeanFactory;
+import org.springframework.beans.factory.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -13,7 +13,16 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader i
 
     @Override
     public void refresh() throws BeansException {
-
+        // 1. 创建 BeanFactory，并加载 BeanDefinition
+        refreshBeanFactory();
+        // 2. 获取 BeanFactory
+        ConfigurableListableBeanFactory beanFactory = getBeanFactory();
+        // 3. 在 Bean 实例化之前，执行 BeanFactoryPostProcessor (Invoke factory processors registered as beans in the context.)
+        invokeBeanFactoryPostProcessor(beanFactory);
+        // 4. BeanPostProcessor 需要提前于其他 Bean 对象实例化之前执行注册操作
+        registerBeanPostProcessors(beanFactory);
+        // 5. 提前实例化单例Bean对象
+        beanFactory.preInstantiateSingletons();
     }
 
     protected abstract void refreshBeanFactory() throws BeansException;

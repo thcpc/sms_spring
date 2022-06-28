@@ -1,8 +1,8 @@
 package org.springframework.context.support;
 
 import org.springframework.beans.BeansException;
-import org.springframework.beans.ConfigurableListableBeanFactory;
-import org.springframework.beans.factory.config.DefaultListableBeanFactory;
+import org.springframework.beans.factory.ConfigurableListableBeanFactory;
+import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 
 public abstract class AbstractRefreshableApplicationContext extends AbstractApplicationContext {
     private DefaultListableBeanFactory beanFactory;
@@ -15,9 +15,9 @@ public abstract class AbstractRefreshableApplicationContext extends AbstractAppl
         this.beanFactory = beanFactory;
     }
 
-    private DefaultListableBeanFactory createBeanFactory() {return new DefaultListableBeanFactory();}
+    private DefaultListableBeanFactory createBeanFactory() { return new DefaultListableBeanFactory(); }
 
     protected  abstract void loadBeanDefinitions(DefaultListableBeanFactory beanFactory);
 
-    protected ConfigurableListableBeanFactory getBeanFactory(){return beanFactory;}
+    protected ConfigurableListableBeanFactory getBeanFactory(){ return beanFactory; }
 }
